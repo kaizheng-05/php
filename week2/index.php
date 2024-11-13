@@ -2,7 +2,7 @@
 <html>
 <head>
   <style>
-     body {background-color: black;}
+     body {background-color: magenta;}
   </style>
 </head>
 <body>
