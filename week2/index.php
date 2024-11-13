@@ -9,7 +9,7 @@
 
 <?php
 echo "My first PHP script!";
-echo date("d");
+echo date("d M Y");
 ?>
 
 </body>
