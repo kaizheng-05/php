@@ -2,7 +2,7 @@
 <html>  
   <body>
 
-    <form action="welcome.php" href="welcome.php" method="get">
+    <form action="form_validate.php"  method="post">
     Name: <input type="text"name="name"><br>
     E-mail: <input type="text"name="email"><br>
     age: <input type="text"name="age"><br>
