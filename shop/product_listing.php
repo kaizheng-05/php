@@ -19,7 +19,7 @@ include 'config/database.php';
 // delete message prompt will be here
  
 // select all data
-$query = "SELECT id, name, description, price FROM products ORDER BY id DESC";
+$query = "SELECT id, name, description, price FROM products INNER JOIN product_cat on products.product_cat=product_cat.product_cat_id ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
  
@@ -39,6 +39,7 @@ if($num>0){
         echo "<th>ID</th>";
         echo "<th>Name</th>";
         echo "<th>Description</th>";
+        echo "<th>product category</th>";
         echo "<th>Price</th>";
         echo "<th>Action</th>";
     echo "</tr>";
@@ -53,6 +54,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$id}</td>";
         echo "<td>{$name}</td>";
         echo "<td>{$description}</td>";
+        echo "<td>{$product_cat_name}</td>";
         echo "<td>{$price}</td>";
         echo "<td>";
             // read one record

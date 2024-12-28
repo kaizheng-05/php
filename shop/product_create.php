@@ -16,6 +16,14 @@
         </div>
       
         <?php
+        include 'config/database.php';
+ 
+        // delete message prompt will be here
+         
+        // select all data
+        $query = "SELECT product_cat_id, product_cat_name, product_cat_description FROM product_cat";
+        $stmt = $con->prepare($query);
+        $stmt->execute();
 if($_POST){
     // include database connection
     include 'config/database.php';
@@ -61,6 +69,16 @@ if($_POST){
         <tr>
             <td>Description</td>
             <td><textarea name='description' class='form-control'></textarea></td>
+        </tr>
+        <tr>
+            <td>product category</td>
+            <td>
+                <select name="product_cat" id="product_cat"><?php
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                extract($row);
+                echo"<option value='$product_cat_name'>$product_cat_name<?option>";
+            }?>
+            </select></td>
         </tr>
         <tr>
             <td>Price</td>
