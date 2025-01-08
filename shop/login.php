@@ -100,3 +100,50 @@
         return isValid;
     }
 </script>
+<?php
+        include 'config/database.php';
+ 
+        // delete message prompt will be here
+         
+        // select all data
+        $query = "SELECT password, status FROM customer WHERE email = 'userinput' OR username = 'userimput'";
+        $stmt = $con->prepare($query);
+        $stmt->execute();
+if($_POST){
+    // include database connection
+    include 'config/database.php';
+    try{
+// posted values
+        $email=$_POST['floatingInput'];
+        $password=$_POST['floatingPassword'];
+        // bind the parameters
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+        // Check the number of results
+$num = $stmt->rowCount();
+
+if ($num > 0) {
+    // Fetch the result
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $passwordHash = $row['floatingPassword']; // Assuming passwords are hashed
+    $status = $row['status'];
+
+    // Verify the password
+    if (password_verify($password, $passwordHash)) {
+        // Password matches
+        echo "Login successful. User status: " . $status;
+    } else {
+        // Password does not match
+        echo "Invalid password.";
+    }
+} else {
+    // No user found
+    echo "No user found with that email or username.";
+}
+    }
+    // show error
+    catch(PDOException $exception){
+        die('ERROR: ' . $exception->getMessage());
+    }
+}
+?>
