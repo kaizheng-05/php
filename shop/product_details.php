@@ -24,7 +24,7 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT id, name, description, price FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM products WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
  
     // this refer to the first question mark
@@ -40,6 +40,10 @@ try {
     $name = $row['name'];
     $description = $row['description'];
     $price = $row['price'];
+    $product_cat = $row['product_cat'];
+    $promotion_price = $row['promotion_price'];
+    $manufacture_date = $row['manufacture_date'];
+    $expired_date = $row['expired_date'];
 }
  
 // show error
@@ -65,9 +69,25 @@ catch(PDOException $exception){
         <td><?php echo $price;  ?></td>
     </tr>
     <tr>
+        <td>Product category</td>
+        <td><?php echo $product_cat;  ?></td>
+    </tr>
+    <tr>
+        <td>promotion Price</td>
+        <td><?php echo $promotion_price;  ?></td>
+    </tr>
+    <tr>
+        <td>manufacture date</td>
+        <td><?php echo $manufacture_date;  ?></td>
+    </tr>
+    <tr>
+        <td>expired date</td>
+        <td><?php echo $expired_date;  ?></td>
+    </tr>
+    <tr>
         <td></td>
         <td>
-            <a href='products_listing.php' class='btn btn-danger'>Back to read products</a>
+            <a href='product_listing.php' class='btn btn-danger'>Back to read products</a>
         </td>
     </tr>
 </table>

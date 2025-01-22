@@ -21,7 +21,7 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT id, name, description, price FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM products WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
      
     // this is the first question mark
@@ -37,6 +37,10 @@ try {
     $name = $row['name'];
     $description = $row['description'];
     $price = $row['price'];
+    $product_cat = $row['product_cat'];
+    $promotion_price = $row['promotion_price'];
+    $manufacture_date = $row['manufacture_date'];
+    $expired_date = $row['expired_date'];
 }
  
 // show error
@@ -62,10 +66,18 @@ if($_POST){
         $name=htmlspecialchars(strip_tags($_POST['name']));
     	$description=htmlspecialchars(strip_tags($_POST['description']));
         $price=htmlspecialchars(strip_tags($_POST['price'])); 
+        $product_cat=htmlspecialchars(strip_tags($_POST['product_cat'])); 
+        $promotion_price=htmlspecialchars(strip_tags($_POST['promotion_price']));
+        $manufacture_date=htmlspecialchars(strip_tags($_POST['manufacture_date']));
+        $expired_date=htmlspecialchars(strip_tags($_POST['expired_date']));
         // bind the parameters
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':product_cat', $product_cat);
+        $stmt->bindParam(':promotion_price', $promotion_price);
+        $stmt->bindParam(':manufacture_date', $manufacture_date);
+        $stmt->bindParam(':expired_date', $expired_date);
         $stmt->bindParam(':id', $id);
         // Execute the query
         if($stmt->execute()){
@@ -97,7 +109,23 @@ if($_POST){
             <td>Price</td>
             <td><input type='text' name='price' value="<?php echo $price;  ?>" class='form-control' /></td>
         </tr>
-
+        <tr>
+            <td>product category</td>
+            <td><input type='int' name='product_cat' value="<?php echo $product_cat;  ?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>promotion Price</td>
+            <td><input type='text' name='promotion_price' value="<?php echo $promotion_price;  ?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>manufacture date</td>
+            <td><input type='date' name='manufacture_date' value="<?php echo $manufacture_date;  ?>" class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>expired date</td>
+            <td><input type='date' name='expired_date' value="<?php echo $expired_date;  ?>" class='form-control' /></td>
+        </tr>
+        <tr>
         <tr>
             <td></td>
             <td>

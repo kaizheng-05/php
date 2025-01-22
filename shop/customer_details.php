@@ -24,7 +24,7 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT username primary key, password, first_name, last_name, gender, date_of_birth, Registration_Date, Account_status FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM products WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
  
     // this refer to the first question mark

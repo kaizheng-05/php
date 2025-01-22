@@ -32,17 +32,57 @@ if($_POST){
         $name=$_POST['name'];
         $description=$_POST['description'];
         $price=$_POST['price'];
+        $promotion_price=$_POST['promotion_price'];
+        $manufacture_date=$_POST['manufacture_date'];
+        $expired_date=$_POST['expired_date'];
         // insert query
-        $query = "INSERT INTO products SET name=:name, description=:description, price=:price, created=:created";
+        $query = "INSERT INTO products SET name=:name, description=:description, price=:price, created=:created, promotion_price=:promotion_price, manufacture_date=:manufacture_date, expired_date=:expired_date";
         // prepare query for execution
         $stmt = $con->prepare($query);
         // bind the parameters
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':description', $description);
         $stmt->bindParam(':price', $price);
+        $stmt->bindParam(':promotion_price', $promotion_price);
+        $stmt->bindParam(':manufacture_date', $manufacture_date);
+        $stmt->bindParam(':expired_date', $expired_date);
         // specify when this record was inserted to the database
         $created=date('Y-m-d H:i:s');
         $stmt->bindParam(':created', $created);
+        // Validation
+        $errors = [];
+        if (empty($name)) {
+            $errors[] = "Name is required.";
+        }
+        if (empty($description)) {
+            $errors[] = "description is required.";
+        }
+        if (empty($price)=='number_format') {
+            $errors[] = "price is required.";
+        }
+        if (empty($promotion_price)=='number_format') {
+            $errors[] = "promotion price is required.";
+        }
+        if (empty($manufacture_date)) {
+            $errors[] = "manufacture date is required.";
+        }
+        if (empty($expired_date)) {
+            $errors[] = "expired date is required.";
+        }
+
+        // If there are errors, display them
+        if (!empty($errors)) {
+            echo "<div class='alert alert-danger'><ul>";
+            foreach ($errors as $error) {
+                echo "<li>{$error}</li>";
+            }
+            echo "</ul></div>";
+        } 
+        else {
+
+        }
+            // Insert query
+        
         // Execute the query
         if($stmt->execute()){
             echo "<div class='alert alert-success'>Product was added.</div>";
@@ -57,7 +97,22 @@ if($_POST){
 }
 ?>
 
-
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="product_create.php">create product</a>
+        <a class="nav-link" href="product_listing">product listing</a>
+        <a class="nav-link" href="customer_create.php">create customer</a>
+        <a class="nav-link" href="customer_listing.php">customer listing</a>
+      </div>
+    </div>
+  </div>
+</nav>
  
 <!-- html form here where the product information will be entered -->
 <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method="post">
@@ -83,6 +138,18 @@ if($_POST){
         <tr>
             <td>Price</td>
             <td><input type='text' name='price' class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>promotion Price</td>
+            <td><input type='text' name='promotion_price' class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>manufacture date</td>
+            <td><input type='date' name='manufacture_date' class='form-control' /></td>
+        </tr>
+        <tr>
+            <td>expired date</td>
+            <td><input type='date' name='expired_date' class='form-control' /></td>
         </tr>
         <tr>
             <td></td>

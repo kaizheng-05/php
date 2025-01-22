@@ -11,7 +11,22 @@
         <div class="page-header">
             <h1>Read Products</h1>
         </div>
-     
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="#">Home</a>
+        <a class="nav-link" href="product_create.php">create product</a>
+        <a class="nav-link" href="product_listing">product listing</a>
+        <a class="nav-link" href="customer_create.php">create customer</a>
+        <a class="nav-link" href="customer_listing.php">customer listing</a>
+      </div>
+    </div>
+  </div>
+</nav>
         <?php
 // include database connection
 include 'config/database.php';
@@ -19,7 +34,7 @@ include 'config/database.php';
 // delete message prompt will be here
  
 // select all data
-$query = "SELECT id, name, description, price FROM products INNER JOIN product_cat on products.product_cat=product_cat.product_cat_id ORDER BY id DESC";
+$query = "SELECT * FROM products INNER JOIN product_cat on products.product_cat=product_cat.product_cat_id ORDER BY id DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
  
@@ -58,10 +73,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$price}</td>";
         echo "<td>";
             // read one record
-            echo "<a href='read_one.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
+            echo "<a href='product_details.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
              
             // we will use this links on next part of this post
-            echo "<a href='product_upadate.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";
+            echo "<a href='product_update.php?id={$id}' class='btn btn-primary m-r-1em'>Edit</a>";
  
             // we will use this links on next part of this post
             echo "<a href='#' onclick='delete_user({$id});'  class='btn btn-danger'>Delete</a>";
