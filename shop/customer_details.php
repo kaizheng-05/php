@@ -24,7 +24,7 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT * FROM products WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM customer WHERE id = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
  
     // this refer to the first question mark
@@ -43,7 +43,7 @@ try {
     $last_name = $row['last_name'];
     $gender = $row['gender'];
     $date_of_birth = $row['date_of_birth'];
-    $Registration_Date = $row['Registration_Date'];
+    $Registration_Date_and_time = $row['Registration_Date_&_time'];
     $Account_status = $row['Account_status'];
 }
  
@@ -82,8 +82,8 @@ catch(PDOException $exception){
         <td><?php echo $date_of_birth;  ?></td>
     </tr>
     <tr>
-        <td>Registration_Date</td>
-        <td><?php echo $Registration_Date;  ?></td>
+        <td>Registration Date & time</td>
+        <td><?php echo $Registration_Date_and_time;  ?></td>
     </tr>
     <tr>
         <td>Account_status</td>
@@ -92,7 +92,7 @@ catch(PDOException $exception){
     <tr>
         <td></td>
         <td>
-            <a href='index.php' class='btn btn-danger'>Back to read products</a>
+            <a href='customer_listing.php' class='btn btn-danger'>Back to read products</a>
         </td>
     </tr>
 </table>

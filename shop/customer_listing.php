@@ -57,6 +57,8 @@ if($num>0){
         echo "<th>last_name</th>";
         echo "<th>gender</th>";
         echo "<th>date_of_birth</th>";
+        echo "<th>registration_date_and_time</th>";
+        echo "<th>account_status</th>";
     echo "</tr>";
      
     // retrieve our table contents
@@ -71,7 +73,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$firstname}</td>";
         echo "<td>{$lastname}</td>";
         echo "<td>{$gender}</td>";
-        echo "<td>{$dateofbirth}</td>";
+        echo "<td>{$date_of_birth}</td>";
+        echo "<td>{$registration_date_and_time}</td>";
+        echo "<td>{$account_status}</td>";
         echo "<td>";
             // read one record
             echo "<a href='customer_details.php?id={$username}' class='btn btn-info m-r-1em'>Read</a>";

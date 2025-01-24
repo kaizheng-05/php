@@ -52,7 +52,27 @@ if($_POST){
         $stmt->bindParam(':first_name', $firstname);
         $stmt->bindParam(':last_name', $lastname);
         $stmt->bindParam(':gender', $gender);
-        $stmt->bindParam(':date_of_birth', $dateofbirth);
+        $stmt->bindParam(':date_of_birth', $date_of_birth);
+        // Validation
+        $errors = [];
+        if (empty($username)) {
+            $errors[] = "username is required.";
+        }
+        if (empty($password)) {
+            $errors[] = "password is required.";
+        }
+        if (empty($firstname)) {
+            $errors[] = "price is required.";
+        }
+        if (empty($lastname)) {
+            $errors[] = "lastname is required.";
+        }
+        if (empty($gender)) {
+            $errors[] = "gender is required.";
+        }
+        if (empty($date_of_birth)) {
+            $errors[] = "date of birth is required.";
+        }
         // Execute the query
         if($stmt->execute()){
             echo "<div class='alert alert-success'>Product was added.</div>";

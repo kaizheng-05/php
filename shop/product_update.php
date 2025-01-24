@@ -79,6 +79,26 @@ if($_POST){
         $stmt->bindParam(':manufacture_date', $manufacture_date);
         $stmt->bindParam(':expired_date', $expired_date);
         $stmt->bindParam(':id', $id);
+        // Validation
+        $errors = [];
+        if (empty($name)) {
+            $errors[] = "Name is required.";
+        }
+        if (empty($description)) {
+            $errors[] = "description is required.";
+        }
+        if (empty($price)=='number_format') {
+            $errors[] = "price is required.";
+        }
+        if (empty($promotion_price)=='number_format') {
+            $errors[] = "promotion price is required.";
+        }
+        if (empty($manufacture_date)) {
+            $errors[] = "manufacture date is required.";
+        }
+        if (empty($expired_date)) {
+            $errors[] = "expired date is required.";
+        }
         // Execute the query
         if($stmt->execute()){
             echo "<div class='alert alert-success'>Record was updated.</div>";
