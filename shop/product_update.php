@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<?php include 'menu.php'?>
 <head>
     <title>PDO - Read Records - PHP CRUD Tutorial</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -57,9 +58,7 @@ if($_POST){
         // write update query
         // in this case, it seemed like we have so many fields to pass and
         // it is better to label them and not use question marks
-        $query = "UPDATE products
-                  SET name=:name, description=:description,
-   price=:price WHERE id = :id";
+        $query = "UPDATE products SET name=:name, description=:description,price=:price,product_cat=:product_cat,promotion_price=:promotion_price,manufacture_date=:manufacture_date ,expired_date=:expired_date WHERE id = :id";
         // prepare query for excecution
         $stmt = $con->prepare($query);
         // posted values
@@ -87,17 +86,20 @@ if($_POST){
         if (empty($description)) {
             $errors[] = "description is required.";
         }
-        if (empty($price)=='number_format') {
+        if (empty($price)) {
             $errors[] = "price is required.";
         }
-        if (empty($promotion_price)=='number_format') {
-            $errors[] = "promotion price is required.";
+        if (empty($product_cat)) {
+            $errors[] = "product_cat is required.";
+        }
+        if (empty($promotion_price < $price)) {
+            $errors[] = "promotion_price is required.";
         }
         if (empty($manufacture_date)) {
-            $errors[] = "manufacture date is required.";
+            $errors[] = "manufacture_date is required.";
         }
-        if (empty($expired_date)) {
-            $errors[] = "expired date is required.";
+        if (empty($expired_date < $manufacture_date)) {
+            $errors[] = "expired_date is required.";
         }
         // Execute the query
         if($stmt->execute()){
@@ -127,15 +129,15 @@ if($_POST){
         </tr>
         <tr>
             <td>Price</td>
-            <td><input type='text' name='price' value="<?php echo $price;  ?>" class='form-control' /></td>
+            <td><input type='double' name='price' value="<?php echo $price;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>product category</td>
-            <td><input type='int' name='product_cat' value="<?php echo $product_cat;  ?>" class='form-control' /></td>
+            <td><input type='text' name='product_cat' value="<?php echo $product_cat;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>promotion Price</td>
-            <td><input type='text' name='promotion_price' value="<?php echo $promotion_price;  ?>" class='form-control' /></td>
+            <td><input type='double' name='promotion_price' value="<?php echo $promotion_price;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>manufacture date</td>

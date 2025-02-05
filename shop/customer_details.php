@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<?php include 'menu.php'?>
 <head>
     <title>PDO - Read One Record - PHP CRUD Tutorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,12 +40,12 @@ try {
     // values to fill up our form
     $email = $row['email'];
     $password = $row['password'];
-    $first_name = $row['first_name'];
-    $last_name = $row['last_name'];
+    $firstname = $row['firstname'];
+    $lastname = $row['lastname'];
     $gender = $row['gender'];
     $date_of_birth = $row['date_of_birth'];
-    $Registration_Date_and_time = $row['Registration_Date_&_time'];
-    $Account_status = $row['Account_status'];
+    $registration_date_and_time = $row['registration_date_and_time'];
+    $account_status = $row['account_status'];
 }
  
 // show error
@@ -66,28 +67,28 @@ catch(PDOException $exception){
         <td><?php echo $password;  ?></td>
     </tr>
     <tr>
-        <td>first_name</td>
-        <td><?php echo $descrfirst_nameiption;  ?></td>
+        <td>first name</td>
+        <td><?php echo $firstname;  ?></td>
     </tr>
     <tr>
-        <td>last_name</td>
-        <td><?php echo $last_name;  ?></td>
+        <td>last name</td>
+        <td><?php echo $lastname;  ?></td>
     </tr>
     <tr>
         <td>gender</td>
         <td><?php echo $gender;  ?></td>
     </tr>
     <tr>
-        <td>date_of_birth</td>
+        <td>date of birth</td>
         <td><?php echo $date_of_birth;  ?></td>
     </tr>
     <tr>
-        <td>Registration Date & time</td>
-        <td><?php echo $Registration_Date_and_time;  ?></td>
+        <td>Registration Date and time</td>
+        <td><?php echo $registration_date_and_time;  ?></td>
     </tr>
     <tr>
-        <td>Account_status</td>
-        <td><?php echo $Account_status;  ?></td>
+        <td>Account status</td>
+        <td><?php echo $account_status;  ?></td>
     </tr>
     <tr>
         <td></td>

@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<?php include 'menu.php'?>
 <head>
     <title>PDO - Create a Record - PHP CRUD Tutorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,22 +12,6 @@
         <div class="page-header">
             <h1>Read list</h1>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="product_create.php">create product</a>
-        <a class="nav-link" href="product_listing">product listing</a>
-        <a class="nav-link" href="customer_create.php">create customer</a>
-        <a class="nav-link" href="customer_listing.php">customer listing</a>
-      </div>
-    </div>
-  </div>
-</nav>
         <?php
 // include database connection
 include 'config/database.php';
@@ -53,8 +38,8 @@ if($num>0){
     echo "<tr>";
         echo "<th>email</th>";
         echo "<th>password</th>";
-        echo "<th>first_name</th>";
-        echo "<th>last_name</th>";
+        echo "<th>firstname</th>";
+        echo "<th>lastname</th>";
         echo "<th>gender</th>";
         echo "<th>date_of_birth</th>";
         echo "<th>registration_date_and_time</th>";
@@ -79,10 +64,10 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$account_status}</td>";
         echo "<td>";
             // read one record
-            echo "<a href='customer_details.php?id={$email}' class='btn btn-info m-r-1em'>Read</a>";
+            echo "<a href='customer_details.php?email={$email}' class='btn btn-info m-r-1em'>Read</a>";
              
             // we will use this links on next part of this post
-            echo "<a href='customer_update.php?id={$email}' class='btn btn-primary m-r-1em'>Edit</a>";
+            echo "<a href='customer_update.php?email={$email}' class='btn btn-primary m-r-1em'>Edit</a>";
  
             // we will use this links on next part of this post
             echo "<a href='#' onclick='delete_user({$email});'  class='btn btn-danger'>Delete</a>";

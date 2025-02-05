@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<?php include 'menu.php'?>
 <head>
     <title>PDO - Create a customer - PHP CRUD Tutorial</title>
     <meta charset="utf-8">
@@ -14,22 +15,6 @@
         <div class="page-header">
             <h1>Create customer</h1>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="product_create.php">create product</a>
-        <a class="nav-link" href="product_listing">product listing</a>
-        <a class="nav-link" href="customer_create.php">create customer</a>
-        <a class="nav-link" href="customer_listing.php">customer listing</a>
-      </div>
-    </div>
-  </div>
-</nav>
         <?php
 if($_POST){
     // include database connection
@@ -38,19 +23,19 @@ if($_POST){
 // posted values
         $email=$_POST['email'];
         $password=$_POST['password'];
-        $firstname=$_POST['first_name'];
-        $lastname=$_POST['last_name'];
+        $first_name=$_POST['firstname'];
+        $last_name=$_POST['lastname'];
         $gender=$_POST['gender'];
-        $dateofbirth=$_POST['date_of_birth'];
+        $date_of_birth=$_POST['date_of_birth'];
         // insert query
-        $query = "INSERT INTO products SET email=:email, password=:password, first_name=:first_name, last_name=:last_name, gender=:gender, date_of_birth=:date_of_birth";
+        $query = "INSERT INTO customer SET email=:email, password=:password, firstname=:firstname, lastname=:lastname, gender=:gender, date_of_birth=:date_of_birth";
         // prepare query for execution
         $stmt = $con->prepare($query);
         // bind the parameters
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
-        $stmt->bindParam(':first_name', $firstname);
-        $stmt->bindParam(':last_name', $lastname);
+        $stmt->bindParam(':firstname', $firstname);
+        $stmt->bindParam(':lastname', $lastname);
         $stmt->bindParam(':gender', $gender);
         $stmt->bindParam(':date_of_birth', $date_of_birth);
         // Validation
@@ -71,7 +56,7 @@ if($_POST){
             $errors[] = "gender is required.";
         }
         if (empty($date_of_birth)) {
-            $errors[] = "date of birth is required.";
+            $errors[] = "date_of_birth is required.";
         }
         // Execute the query
         if($stmt->execute()){
@@ -100,12 +85,12 @@ if($_POST){
         </tr>
         <tr>
             <td>first name</td>
-            <td><input type='text' name='first_name' class='form-control' /></td>
+            <td><input type='text' name='firstname' class='form-control' /></td>
         </tr>
         <tr>
         <tr>
             <td>last name</td>
-            <td><input type='text' name='last_name' class='form-control' /></td>
+            <td><input type='text' name='lastname' class='form-control' /></td>
         </tr>
         <tr>
             <td>gender</td>

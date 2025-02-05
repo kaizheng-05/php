@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+<?php include 'menu.php'?>
 <head>
     <title>PDO - Read Records - PHP CRUD Tutorial</title>
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -8,7 +9,7 @@
 <body>
     <div class="container">
         <div class="page-header">
-            <h1>Update Product</h1>
+            <h1>Update customer</h1>
         </div>
         <?php
 // get passed parameter value, in this case, the record ID
@@ -25,7 +26,7 @@ try {
     $stmt = $con->prepare( $query );
      
     // this is the first question mark
-    $stmt->bindParam(1, $id);
+    $stmt->bindParam(1, $email);
      
     // execute our query
     $stmt->execute();
@@ -39,7 +40,7 @@ try {
     $firstname = $row['firstname'];
     $lastname = $row['lastname'];
     $gender = $row['gender'];
-    $dateofbirth = $row['date_of_birth'];
+    $date_of_birth = $row['date_of_birth'];
     $registration_date_and_time = $row['registration_date_and_time'];
     $account_status = $row['account_status'];
 }
@@ -87,10 +88,10 @@ if($_POST){
             $errors[] = "password is required.";
         }
         if (empty($firstname)) {
-            $errors[] = "price is required.";
+            $errors[] = "first name is required.";
         }
         if (empty($lastname)) {
-            $errors[] = "lastname is required.";
+            $errors[] = "last name is required.";
         }
         if (empty($gender)) {
             $errors[] = "gender is required.";
@@ -126,21 +127,20 @@ if($_POST){
             <td>email</td>
             <td><input type='text' name='email' value="<?php echo $email;  ?>" class='form-control' /></td>
         </tr>
-        <tr>
-            <td>password</td>
-            <td><input type="password" name='password' class='form-control'><?php echo $password;  ?></input></td>
-        </tr>
+        
         <tr>
             <td>firstname</td>
-            <td><input type='text' name='firstname' value="<?php echo $firstname;  ?>" class='form-control' /></td>
+            <td><input type='text' name='first_name' value="<?php echo $firstname;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>lastname</td>
-            <td><input type='text' name='lastname' value="<?php echo $lastname;  ?>" class='form-control' /></td>
+            <td><input type='text' name='last_name' value="<?php echo $lastname;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>gender</td>
-            <td><input type='radio' name='gender' value="<?php echo $gender;  ?>" class='form-control' /></td>
+            <td><?php echo $gender;  ?>
+            <input type='radio' name='gender'  />male
+            <input type='radio' name='gender'  />female</td>
         </tr>
         <tr>
             <td>date of birth</td>
@@ -152,20 +152,36 @@ if($_POST){
         </tr>
         <tr>
             <td>account status</td>
-            <td><input type='radio' name='account_status' value="<?php echo $account_status;  ?>" class='form-control' /></td>
+            <td><?php echo $account_status;  ?>
+            <input type='radio' name='gender'  />active
+            <input type='radio' name='gender'  />inactive</td>
         </tr>
         <tr>
         <tr>
             <td></td>
             <td>
                 <input type='submit' value='Save Changes' class='btn btn-primary' />
-                <a href='product_listing.php' class='btn btn-danger'>Back to read products</a>
+                <a href='customer_listing.php' class='btn btn-danger'>Back to read products</a>
             </td>
         </tr>
     </table>
 </form>
-
-
+<h1>change password</h1>
+    <table class='table table-hover table-responsive table-bordered'>
+        <tr>
+            <td>old password</td>
+            <td><?php echo $password;  ?></td>
+        </tr>
+        <tr>
+            <td>new password</td>
+            <td><input type="password" name='password' class='form-control'></input>
+            </td>
+        </tr>
+        <tr>
+            <td>comfirm password</td>
+            <td><input type="password" name='password' class='form-control'></input></td>
+        </tr>
+    </table>
    </div> 
    <!-- end .container --> 
 </body>

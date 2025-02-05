@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+    <?php include 'menu.php'?>
 <head>
     <title>PDO - Create a Record - PHP CRUD Tutorial</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -11,22 +12,7 @@
         <div class="page-header">
             <h1>Read Products</h1>
         </div>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="product_create.php">create product</a>
-        <a class="nav-link" href="product_listing">product listing</a>
-        <a class="nav-link" href="customer_create.php">create customer</a>
-        <a class="nav-link" href="customer_listing.php">customer listing</a>
-      </div>
-    </div>
-  </div>
-</nav>
+        
         <?php
 // include database connection
 include 'config/database.php';
@@ -56,6 +42,7 @@ if($num>0){
         echo "<th>Description</th>";
         echo "<th>product category</th>";
         echo "<th>Price</th>";
+        echo "<th>promotion Price</th>";
         echo "<th>Action</th>";
     echo "</tr>";
      
@@ -69,8 +56,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$id}</td>";
         echo "<td>{$name}</td>";
         echo "<td>{$description}</td>";
-        echo "<td>{$product_cat_id}</td>";
+        echo "<td>{$product_cat_name}</td>";
         echo "<td>{$price}</td>";
+        echo "<td>{$promotion_price}</td>";
         echo "<td>";
             // read one record
             echo "<a href='product_details.php?id={$id}' class='btn btn-info m-r-1em'>Read</a>";
