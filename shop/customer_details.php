@@ -16,7 +16,7 @@
         <?php
 // get passed parameter value, in this case, the record ID
 // isset() is a PHP function used to verify if a value is there or not
-$id=isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
+$email=isset($_GET['email']) ? $_GET['email'] : die('ERROR: Record ID not found.');
  
 //include database connection
 include 'config/database.php';
@@ -24,11 +24,11 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT * FROM customer WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM customer WHERE email = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
  
     // this refer to the first question mark
-    $stmt->bindParam(1, $id);
+    $stmt->bindParam(1, $email);
  
     // execute our query
     $stmt->execute();
@@ -37,7 +37,7 @@ try {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
  
     // values to fill up our form
-    $username = $row['username'];
+    $email = $row['email'];
     $password = $row['password'];
     $first_name = $row['first_name'];
     $last_name = $row['last_name'];
@@ -58,8 +58,8 @@ catch(PDOException $exception){
         <!--we have our html table here where the record will be displayed-->
 <table class='table table-hover table-responsive table-bordered'>
     <tr>
-        <td>username</td>
-        <td><?php echo $username;  ?></td>
+        <td>email</td>
+        <td><?php echo $email;  ?></td>
     </tr>
     <tr>
         <td>password</td>

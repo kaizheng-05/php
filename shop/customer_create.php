@@ -36,18 +36,18 @@ if($_POST){
     include 'config/database.php';
     try{
 // posted values
-        $username=$_POST['username'];
+        $email=$_POST['email'];
         $password=$_POST['password'];
         $firstname=$_POST['first_name'];
         $lastname=$_POST['last_name'];
         $gender=$_POST['gender'];
         $dateofbirth=$_POST['date_of_birth'];
         // insert query
-        $query = "INSERT INTO products SET username=:username, password=:password, first_name=:first_name, last_name=:last_name, gender=:gender, date_of_birth=:date_of_birth";
+        $query = "INSERT INTO products SET email=:email, password=:password, first_name=:first_name, last_name=:last_name, gender=:gender, date_of_birth=:date_of_birth";
         // prepare query for execution
         $stmt = $con->prepare($query);
         // bind the parameters
-        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':first_name', $firstname);
         $stmt->bindParam(':last_name', $lastname);
@@ -55,8 +55,8 @@ if($_POST){
         $stmt->bindParam(':date_of_birth', $date_of_birth);
         // Validation
         $errors = [];
-        if (empty($username)) {
-            $errors[] = "username is required.";
+        if (empty($email)) {
+            $errors[] = "email is required.";
         }
         if (empty($password)) {
             $errors[] = "password is required.";
@@ -91,8 +91,8 @@ if($_POST){
 <form action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>' method="post">
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
-            <td>username</td>
-            <td><input type='text' name='username' class='form-control' /></td>
+            <td>email</td>
+            <td><input type='text' name='email' class='form-control' /></td>
         </tr>
         <tr>
             <td>password</td>
@@ -114,7 +114,7 @@ if($_POST){
         </tr>
         <tr>
             <td>date of birth</td>
-            <td><input type='date' name='date_of_birth' class='form-control' /></td>
+            <td><input type='datetime' name='date_of_birth' class='form-control' /></td>
         </tr>
             <td></td>
             <td>

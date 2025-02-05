@@ -34,7 +34,7 @@ include 'config/database.php';
 // delete message prompt will be here
  
 // select all data
-$query = "SELECT * FROM customer ORDER BY username DESC";
+$query = "SELECT * FROM customer ORDER BY email DESC";
 $stmt = $con->prepare($query);
 $stmt->execute();
  
@@ -51,7 +51,7 @@ if($num>0){
  
     //creating our table heading
     echo "<tr>";
-        echo "<th>username</th>";
+        echo "<th>email</th>";
         echo "<th>password</th>";
         echo "<th>first_name</th>";
         echo "<th>last_name</th>";
@@ -59,6 +59,7 @@ if($num>0){
         echo "<th>date_of_birth</th>";
         echo "<th>registration_date_and_time</th>";
         echo "<th>account_status</th>";
+        echo "<th>Action</th>";
     echo "</tr>";
      
     // retrieve our table contents
@@ -68,7 +69,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
     extract($row);
     // creating new table row per record
     echo "<tr>";
-        echo "<td>{$username}</td>";
+        echo "<td>{$email}</td>";
         echo "<td>{$password}</td>";
         echo "<td>{$firstname}</td>";
         echo "<td>{$lastname}</td>";
@@ -78,13 +79,13 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
         echo "<td>{$account_status}</td>";
         echo "<td>";
             // read one record
-            echo "<a href='customer_details.php?id={$username}' class='btn btn-info m-r-1em'>Read</a>";
+            echo "<a href='customer_details.php?id={$email}' class='btn btn-info m-r-1em'>Read</a>";
              
             // we will use this links on next part of this post
-            echo "<a href='customer_update.php?id={$username}' class='btn btn-primary m-r-1em'>Edit</a>";
+            echo "<a href='customer_update.php?id={$email}' class='btn btn-primary m-r-1em'>Edit</a>";
  
             // we will use this links on next part of this post
-            echo "<a href='#' onclick='delete_user({$username});'  class='btn btn-danger'>Delete</a>";
+            echo "<a href='#' onclick='delete_user({$email});'  class='btn btn-danger'>Delete</a>";
         echo "</td>";
     echo "</tr>";
 }

@@ -13,7 +13,7 @@
         <?php
 // get passed parameter value, in this case, the record ID
 // isset() is a PHP function used to verify if a value is there or not
-$id = isset($_GET['id']) ? $_GET['id'] : die('ERROR: Record ID not found.');
+$email = isset($_GET['email']) ? $_GET['email'] : die('ERROR: Record ID not found.');
  
 //include database connection
 include 'config/database.php';
@@ -21,7 +21,7 @@ include 'config/database.php';
 // read current record's data
 try {
     // prepare select query
-    $query = "SELECT * FROM customer WHERE id = ? LIMIT 0,1";
+    $query = "SELECT * FROM customer WHERE email = ? LIMIT 0,1";
     $stmt = $con->prepare( $query );
      
     // this is the first question mark
@@ -34,7 +34,7 @@ try {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
      
     // values to fill up our form
-    $username = $row['username'];
+    $email = $row['email'];
     $password = $row['password'];
     $firstname = $row['firstname'];
     $lastname = $row['lastname'];
@@ -57,11 +57,11 @@ if($_POST){
         // write update query
         // in this case, it seemed like we have so many fields to pass and
         // it is better to label them and not use question marks
-        $query = "UPDATE products SET username=:username, password=:password, firstname=:firstname, lastname=:lastname, gender=:gender, date_of_birth=:date_of_birth, registration_date_and_time=:registration_date_and_time, account_status=:account_status WHERE id = :id";
+        $query = "UPDATE customer SET email=:email, password=:password, firstname=:firstname, lastname=:lastname, gender=:gender, date_of_birth=:date_of_birth, registration_date_and_time=:registration_date_and_time, account_status=:account_status WHERE email = :email";
         // prepare query for excecution
         $stmt = $con->prepare($query);
         // posted values
-        $name=htmlspecialchars(strip_tags($_POST['username']));
+        $name=htmlspecialchars(strip_tags($_POST['email']));
     	$description=htmlspecialchars(strip_tags($_POST['password']));
         $price=htmlspecialchars(strip_tags($_POST['firstname'])); 
         $product_cat=htmlspecialchars(strip_tags($_POST['lastname'])); 
@@ -70,7 +70,7 @@ if($_POST){
         $expired_date=htmlspecialchars(strip_tags($_POST['registration_date_and_time']));
         $expired_date=htmlspecialchars(strip_tags($_POST['account_status']));
         // bind the parameters
-        $stmt->bindParam(':username', $username);
+        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':password', $password);
         $stmt->bindParam(':firstname', $firstname);
         $stmt->bindParam(':lastname', $lastname);
@@ -78,11 +78,10 @@ if($_POST){
         $stmt->bindParam(':date_of_birth', $date_of_birth);
         $stmt->bindParam(':registration_date_and_time', $registration_date_and_time);
         $stmt->bindParam(':account_status', $account_status);
-        $stmt->bindParam(':id', $id);
         // Validation
         $errors = [];
-        if (empty($username)) {
-            $errors[] = "username is required.";
+        if (empty($email)) {
+            $errors[] = "email is required.";
         }
         if (empty($password)) {
             $errors[] = "password is required.";
@@ -121,11 +120,11 @@ if($_POST){
 
  
 <!--we have our html form here where new record information can be updated-->
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?id={$id}");?>" method="post">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?email={$email}");?>" method="post">
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
-            <td>username</td>
-            <td><input type='text' name='username' value="<?php echo $username;  ?>" class='form-control' /></td>
+            <td>email</td>
+            <td><input type='text' name='email' value="<?php echo $email;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>password</td>

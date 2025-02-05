@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 22, 2025 at 07:18 AM
--- Server version: 5.7.36
--- PHP Version: 7.4.26
+-- Generation Time: Feb 05, 2025 at 02:37 AM
+-- Server version: 8.3.0
+-- PHP Version: 8.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,15 +30,22 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `email` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `password` int(11) NOT NULL,
+  `password` int NOT NULL,
   `firstname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `lastname` varchar(50) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
-  `gender` tinyint(1) NOT NULL,
-  `date_of_birth` int(11) NOT NULL,
-  `registration_date_&_time` datetime NOT NULL,
-  `account_status` tinyint(1) NOT NULL DEFAULT '1',
+  `gender` enum('male','female') NOT NULL,
+  `date_of_birth` date NOT NULL,
+  `registration_date_and_time` datetime NOT NULL,
+  `account_status` enum('active','inactive') NOT NULL,
   PRIMARY KEY (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`email`, `password`, `firstname`, `lastname`, `gender`, `date_of_birth`, `registration_date_and_time`, `account_status`) VALUES
+('janydo3cm@email-temp.com', 5449, 'william', 'afton', 'male', '1987-04-30', '2015-06-27 08:30:15', 'inactive');
 
 -- --------------------------------------------------------
 
@@ -48,10 +55,10 @@ CREATE TABLE IF NOT EXISTS `customer` (
 
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE IF NOT EXISTS `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(128) NOT NULL,
   `description` text NOT NULL,
-  `product_cat` int(11) NOT NULL,
+  `product_cat` int NOT NULL,
   `price` double NOT NULL,
   `promotion_price` double NOT NULL,
   `manufacture_date` date DEFAULT NULL,
@@ -80,7 +87,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `product_cat`, `price`, `pr
 
 DROP TABLE IF EXISTS `product_cat`;
 CREATE TABLE IF NOT EXISTS `product_cat` (
-  `product_cat_id` int(11) NOT NULL,
+  `product_cat_id` int NOT NULL,
   `product_cat_name` varchar(100) CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   `product_cat_description` text CHARACTER SET latin1 COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`product_cat_id`)
