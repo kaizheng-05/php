@@ -1,0 +1,1 @@
+<?php echo "<a href='login.php' class='btn btn-primary m-b-1em'>logout</a>" ?>

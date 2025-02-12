@@ -170,7 +170,7 @@ if($_POST){
     <table class='table table-hover table-responsive table-bordered'>
         <tr>
             <td>old password</td>
-            <td><?php echo $password;  ?></td>
+            <td><input type='password' name='password' value="<?php echo $password;  ?>" class='form-control' /></td>
         </tr>
         <tr>
             <td>new password</td>
